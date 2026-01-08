@@ -12,11 +12,18 @@ import SearchBar from "../../components/SearchBar";
 import { icons } from "../../constants/icons";
 import { images } from "../../constants/images";
 import { fetchMovies } from "../../services/api";
+import { getTrendingMovies } from "../../services/appwrite";
 import useFetch from "../../services/useFetch";
 import "../global.css";
 
 export default function Index() {
   const route = useRouter();
+
+  const {
+    data: trendingMovies,
+    loading: loadingTrendingMovies,
+    error: trendingMoviesError,
+  } = useFetch(getTrendingMovies);
 
   const {
     data: movies,
@@ -33,15 +40,15 @@ export default function Index() {
         contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
       >
         <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto " />
-        {loadingMovies ? (
+        {loadingMovies || loadingTrendingMovies ? (
           <ActivityIndicator
             size="large"
             color="#0000ff"
             className="mt-10 self-center"
           />
-        ) : moviesError ? (
+        ) : moviesError || trendingMoviesError ? (
           <Text className="text-white text-center mt-10">
-            An error occurred while loading movies.
+            {moviesError?.message || trendingMoviesError?.message}
           </Text>
         ) : (
           <View className="flex-1 mt-5">
@@ -53,23 +60,39 @@ export default function Index() {
             />
 
             <>
+              {trendingMovies && (
+                <View className="mt-10 ">
+                  <Text className="text-lg text-white font-bold mb-3">
+                    Trending Movies
+                  </Text>
+                </View>
+              )}
+
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                ItemSeparatorComponent={() => <View className="w-4" />}
+                className="mb-4 mt-3"
+                data={trendingMovies}
+                renderItem={({ item, index }) => (
+                  <Text className="text-white">{item.title}</Text>
+                )}
+                keyExtractor={({ movie_id }) => movie_id.toString()}
+              />
+              
               <Text className="text-lg text-white font-bold mt-5 mb-3">
                 Latest Movies
               </Text>
               <FlatList
                 data={movies}
-                renderItem={({ item }) => (
-                  <MovieCard
-                    {...item}
-                  />
-                )}
+                renderItem={({ item }) => <MovieCard {...item} />}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={3}
                 columnWrapperStyle={{
                   justifyContent: "flex-start",
                   gap: 20,
                   paddingRight: 5,
-                  marginBottom: 10
+                  marginBottom: 10,
                 }}
                 className="mt-2 pb-32"
                 scrollEnabled={false}

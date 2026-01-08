@@ -5,25 +5,24 @@ import SearchBar from "../../components/SearchBar";
 import { icons } from "../../constants/icons";
 import { images } from "../../constants/images";
 import { fetchMovies } from "../../services/api";
+// import { updateSearchCount } from "../../services/appwrite";
 import { updateSearchCount } from "../../services/appwrite";
 import useFetch from "../../services/useFetch";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
- 
+
   const {
     data: movies,
     loading: loadingMovies,
     error: moviesError,
     refetch,
-    reset
+    reset,
   } = useFetch(() => fetchMovies({ query: searchQuery }), false);
 
   useEffect(() => {
-    updateSearchCount(searchQuery, movies[0]);
-
-    const timeoutId = setTimeout(() => {
-      if(searchQuery.trim()) {
+    const timeoutId = setTimeout(async () => {
+      if (searchQuery.trim()) {
         refetch();
       } else {
         reset();
@@ -33,6 +32,11 @@ const Search = () => {
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
+  useEffect(() => {
+    if (movies?.length > 0 && movies?.[0]) {
+      updateSearchCount(searchQuery, movies?.[0]);
+    }
+  }, [movies]);
   return (
     <View className="flex-1 bg-primary">
       <Image
@@ -61,10 +65,10 @@ const Search = () => {
             </View>
 
             <View className="my-5">
-              <SearchBar 
-              placeholder="Search Movie..."
-              value={searchQuery}
-              onChangeText={(text: string ) => setSearchQuery(text)}
+              <SearchBar
+                placeholder="Search Movie..."
+                value={searchQuery}
+                onChangeText={(text: string) => setSearchQuery(text)}
               />
             </View>
 
@@ -95,7 +99,10 @@ const Search = () => {
         }
         // @ts-ignore
         ListEmptyComponent={
-          !loadingMovies && !moviesError && searchQuery.trim() && movies?.length === 0 && (
+          !loadingMovies &&
+          !moviesError &&
+          searchQuery.trim() &&
+          movies?.length === 0 && (
             <Text className="text-white text-center mt-10">
               No movies found for {'"'} {searchQuery} {'"'}
             </Text>
