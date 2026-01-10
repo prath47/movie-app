@@ -7,7 +7,7 @@ export default function RootLayout() {
       <StatusBar hidden={true} />
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="movies/[id]" options={{ headerShown: true }} />
+        <Stack.Screen name="movies/[id]" options={{ headerShown: false }} />
       </Stack>
     </>
   );
