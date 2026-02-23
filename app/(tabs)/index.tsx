@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import MovieCard from "../../components/MovieCard";
-import Skeleton from "../../components/Skeleton";
 import SearchBar from "../../components/SearchBar";
 import TrendingCard from "../../components/TrendingCard";
 import { icons } from "../../constants/icons";
@@ -43,13 +42,11 @@ export default function Index() {
       >
         <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto " />
         {loadingMovies || loadingTrendingMovies ? (
-          <View className="mt-10">
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 20 }}>
-              {[...Array(9)].map((_, i) => (
-                <Skeleton key={i} width={100} height={150} style={{ margin: 5 }} />
-              ))}
-            </View>
-          </View>
+          <ActivityIndicator
+            size="large"
+            color="#0000ff"
+            className="mt-10 self-center"
+          />
         ) : moviesError || trendingMoviesError ? (
           <Text className="text-white text-center mt-10">
             {moviesError?.message || trendingMoviesError?.message}
