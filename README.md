@@ -1,50 +1,65 @@
-# Welcome to your Expo app 👋
+# Movie App 🎬
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern mobile application for discovering movies, built with **React Native**, **Expo**, and **Appwrite**.
 
-## Get started
+## 🚀 Features
 
-1. Install dependencies
+- **Discover Movies**: Browse trending and popular movies.
+- **Search**: Find your favorite movies using the integrated search bar.
+- **Movie Details**: View detailed information about each movie.
+- **Personalized Lists**: Save and track movies (Profile & Saved tabs).
+- **Responsive Design**: Styled with **NativeWind** (Tailwind CSS for React Native).
 
-   ```bash
-   npm install
-   ```
+## 🛠 Tech Stack
 
-2. Start the app
+- **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/)
+- **Routing**: [Expo Router](https://docs.expo.dev/router/introduction) (File-based routing)
+- **Backend**: [Appwrite](https://appwrite.io/) (Authentication & Database)
+- **Styling**: [NativeWind](https://www.nativewind.dev/) (Tailwind CSS)
+- **State Management**: Custom hooks & Appwrite integration
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
 
-   ```bash
-   npx expo start
-   ```
+## 📁 Project Structure
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```text
+├── app/                  # Expo Router directory (screens & layouts)
+│   ├── (tabs)/           # Main tab navigation
+│   └── movies/           # Movie detail screens
+├── components/           # Reusable UI components
+├── services/             # API and Appwrite service logic
+├── constants/            # App-wide constants (icons, images)
+├── assets/               # Static assets (fonts, icons, images)
+└── types/                # TypeScript definitions
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🏁 Getting Started
 
-## Learn more
+### 1. Prerequisites
 
-To learn more about developing your project with Expo, look at the following resources:
+- [Node.js](https://nodejs.org/)
+- [Expo Go](https://expo.dev/go) app on your phone or an emulator (Android Studio / Xcode)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 2. Install dependencies
 
-## Join the community
+```bash
+npm install
+```
 
-Join our community of developers creating universal apps.
+### 3. Environment Variables
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Create a `.env` file (if required by your `appwrite.ts` configuration) and add your Appwrite credentials.
+
+### 4. Start the app
+
+```bash
+npx expo start
+```
+
+- Scan the QR code with **Expo Go** (Android) or the Camera app (iOS).
+- Press `a` for Android emulator or `i` for iOS simulator.
+
+## 📖 Learn More
+
+- [Expo Documentation](https://docs.expo.dev/)
+- [Appwrite Documentation](https://appwrite.io/docs)
+- [NativeWind Documentation](https://www.nativewind.dev/)
